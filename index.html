@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디지털 타이머</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .timer {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="timer" class="timer">00:14</div>
+    <button id="addTimer" class="button">새 타이머 추가</button>
+
+    <script>
+        let seconds = 14;
+        let timerInterval;
+
+        function updateTimer() {
+            const timerElement = document.getElementById('timer');
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            
+            if (seconds > 0) {
+                seconds--;
+            } else {
+                clearInterval(timerInterval);
+            }
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            seconds = 14;
+            updateTimer();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        document.getElementById('addTimer').addEventListener('click', startTimer);
+
+        // 초기 타이머 시작
+        startTimer();
+    </script>
+</body>
+</html>
